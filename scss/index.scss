@@ -1,0 +1,9 @@
+@import "utils/variables";
+@import "utils/mixins";
+
+.auth-wrapper {
+    @include center-content;
+
+    height: 100vh;
+    background-color: $primary-color;
+}
