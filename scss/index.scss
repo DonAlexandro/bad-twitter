@@ -7,3 +7,42 @@
     height: 100vh;
     background-color: $primary-color;
 }
+
+.main-wrapper {
+    background-color: $lighter;
+    padding: 2rem 0;
+}
+
+.tab-pane {
+    padding: 1rem 0;
+}
+
+.auth-card {
+    width: 75%;
+
+    @media (max-width: 576px) {
+        width: 90%;
+    }
+
+    @media (min-width: 992px) {
+        width: 50%;
+    }
+
+    @media (min-width: 1200px) {
+        width: 25%;
+    }
+}
+
+.toast {
+    margin: 1rem 1rem 0 0;
+    min-width: 350px;
+    width: auto;
+}
+
+.user-dropdown {
+    min-width: 260px;
+}
+
+.nav-link {
+    cursor: pointer;
+}

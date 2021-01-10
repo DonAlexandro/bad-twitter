@@ -1,5 +1,57 @@
 {{> head}}
-<div class="container">
-    {{{body}}}
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+        <a class="navbar-brand" href="/">Bad Twitter</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#userDropdown">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse w-auto" id="userDropdown">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    {{#if isHome}}
+                        <a class="nav-link active" href="/">Головна</a>
+                    {{else}}
+                        <a class="nav-link" href="/">Головна</a>
+                    {{/if}}
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown">
+                        {{user.name}}
+                    </a>
+                    <ul class="dropdown-menu user-dropdown dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li>
+                            <form action="/profile/status">
+                                <div class="d-flex px-3 py-1">
+                                    <input
+                                        type="text"
+                                        id="status"
+                                        name="status"
+                                        placeholder="Статус"
+                                        class="form-control form-control-sm rounded-0 rounded-start"
+                                    >
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-danger rounded-0 rounded-end"
+                                    >Ок</button>
+                                </div>
+                            </form>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <form action="/auth/logout" method="POST">
+                            <input type="hidden" name="_csrf" value="{{csrf}}">
+                            <li>
+                                <button class="dropdown-item text-center"><strong>Вийти</strong></button>
+                            </li>
+                        </form>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="main-wrapper">
+    <div class="container">
+        {{{body}}}
+    </div>
 </div>
 {{> footer}}
