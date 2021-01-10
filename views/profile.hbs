@@ -1,0 +1,50 @@
+{{> messages}}
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                {{#if user.avatarUrl}}
+                    <img src="{{user.avatarUrl}}" alt="{{user.name}}-avatar" class="img-thumbnail rounded-circle avatar">
+                {{else}}
+                    <img src="/user-plug.png" alt="{{user.name}}-avatar" class="img-thumbnail rounded-circle avatar">
+                {{/if}}
+                <h5 class="card-title mt-3">{{user.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{user.status}}</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-pills" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#feed">Ваші дописи</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-bs-toggle="tab" href="#projects">Ваші проекти</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-bs-toggle="tab" href="#info">Інформація</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="feed">Feed</div>
+            <div class="tab-pane" id="projects">Projects</div>
+            <div class="tab-pane" id="info">Info</div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-0">Портфоліо</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+    </div>
+</div>

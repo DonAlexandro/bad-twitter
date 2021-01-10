@@ -1,6 +1,10 @@
 @import "utils/variables";
 @import "utils/mixins";
 
+body {
+    background-color: $lighter;
+}
+
 .auth-wrapper {
     @include center-content;
 
@@ -9,8 +13,7 @@
 }
 
 .main-wrapper {
-    background-color: $lighter;
-    padding: 2rem 0;
+    padding: 3rem 0;
 }
 
 .tab-pane {
@@ -45,4 +48,18 @@
 
 .nav-link {
     cursor: pointer;
+}
+
+.avatar {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.nav-pills .nav-link {
+    color: $danger-color;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: $danger-color;
 }
