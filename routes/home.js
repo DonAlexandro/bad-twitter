@@ -1,9 +1,12 @@
 const {Router} = require('express')
 const router = Router()
+const {isAuthorized} = require('../middlewares/auth')
 
-router.get('/', (req, res) => {
+router.get('/', isAuthorized, (req, res) => {
 	res.render('home', {
-		title: 'Головна сторінка'
+		title: 'Головна сторінка',
+		isHome: true,
+		user: req.user.toObject()
 	})
 })
 

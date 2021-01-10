@@ -1,5 +1,80 @@
-<div class="card">
+{{> messages}}
+<div class="card auth-card">
     <div class="card-body">
-
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#login">Вхід</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#signup">Реєстрація</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="login">
+                <h5 class="mb-3">Вхід</h5>
+                <form action="/auth/login" method="POST" novalidate>
+                    <div class="input-group mb-3">
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Ел. адреса"
+                        >
+                    </div>
+                    <div class="input-group mb-3">
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Пароль"
+                        >
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <button class="btn btn-danger" type="submit">Увійти</button>
+                        <a href="/auth/recovery" class="text-decoration-none">Забули пароль?</a>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane" id="signup">
+                <h5 class="mb-3">Реєстрація</h5>
+                <form action="/auth/signup" method="POST" novalidate>
+                    <div class="input-group mb-3">
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="Ваше ім'я"
+                        >
+                    </div>
+                    <div class="input-group mb-3">
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Ел. адреса"
+                        >
+                    </div>
+                    <div class="input-group mb-3">
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Пароль"
+                        >
+                    </div>
+                    <div class="input-group mb-3">
+                        <input
+                            type="password"
+                            name="confirm"
+                            class="form-control"
+                            placeholder="Повторіть пароль"
+                        >
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <button class="btn btn-danger" type="submit">Зареєструватися</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
