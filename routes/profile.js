@@ -1,12 +1,28 @@
 const {Router} = require('express')
 const router = Router()
 const User = require('../models/user')
+const Post = require('../models/post')
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+	let posts = await Post
+		.find({userId: req.user})
+		.populate('userId', 'name avatarUrl')
+		.lean() // Transforming mongoose object to json
+
 	res.render('profile', {
 		title: 'Профіль',
-		user: req.user.toObject()
+		user: req.user.toObject(),
+		posts,
+		success: req.flash('success')
 	})
+})
+
+router.post('/', async (req, res) => {
+	try {
+
+	} catch (e) {
+		console.trace(e)
+	}
 })
 
 router.post('/status', async (req, res) => {

@@ -6,6 +6,7 @@ router.get('/', isAuthorized, (req, res) => {
 	res.render('home', {
 		title: 'Головна сторінка',
 		isHome: true,
+		success: req.flash('success'),
 		user: req.user.toObject()
 	})
 })

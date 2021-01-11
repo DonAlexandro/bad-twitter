@@ -11,6 +11,16 @@
                 <h5 class="card-title mt-3">{{user.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{user.status}}</h6>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <form action="/profile" method="POST" class="mb-2">
+                        <label for="avatarUrl" class="form-label">Змінити світлину профілью</label>
+                        <input class="form-control form-control-sm" name="avatarUrl" id="avatarUrl" type="file">
+                        <input type="hidden" name="_csrf" value="{{csrf}}">
+                        <input type="hidden" name="">
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="col-lg-6">
@@ -30,7 +40,71 @@
             </div>
         </div>
         <div class="tab-content">
-            <div class="tab-pane active" id="feed">Feed</div>
+            <div class="tab-pane active" id="feed">
+                <div class="d-grid">
+                    <button
+                        class="btn btn-block btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#postModal"
+                    >Новий допис</button>
+                </div>
+                {{#if posts.length}}
+                    {{#each posts}}
+                        <div class="card mt-3">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    {{#if userId.avatarUrl}}
+                                        <img src="{{userId.avatarUrl}}" width="50px" alt="{{userId.name}} avatar">
+                                    {{else}}
+                                        <img src="/user-plug.png" width="50px" alt="{{userId.name}} avatar">
+                                    {{/if}}
+                                    <h6 class="d-block ms-2 mb-0">
+                                        {{userId.name}} <br>
+                                        <small class="mb-2 text-muted date">{{date}}</small>
+                                    </h6>
+                                </div>
+                                <div class="dropdown">
+                                    <a data-bs-toggle="dropdown" class="options">
+                                        <span class="material-icons">more_vert</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a class="dropdown-item" href="#">Редагувати</a>
+                                        </li>
+                                        <li>
+                                            <form action="/posts/remove" method="POST">
+                                                <input type="hidden" name="id" value="{{_id}}">
+                                                <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                                                <button class="dropdown-item" type="sbumit">Видалити</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{title}}</h5>
+                                <p class="card-text post-text">{{text}}</p>
+                                <a href="/posts/{{_id}}" class="btn btn-danger btn-sm">Переглянути</a>
+                                {{#if tags.length}}
+                                    <h5 class="border-top mt-3 pt-3">
+                                        {{#each tags}}
+                                            <span class="badge rounded-pill bg-secondary">{{this}}</span>
+                                        {{/each}}
+                                    </h5>
+                                {{/if}}
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-muted d-flex align-items-center">
+                                    <span class="material-icons">category</span>
+                                    <div class="ms-1">Категорія: {{category}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <p class="text-center fs-3 mt-3">Дописів поки що немає...</p>
+                {{/if}}
+            </div>
             <div class="tab-pane" id="projects">Projects</div>
             <div class="tab-pane" id="info">Info</div>
         </div>
@@ -48,3 +122,6 @@
         </div>
     </div>
 </div>
+{{#> modal}}
+    {{> post-form}}
+{{/modal}}

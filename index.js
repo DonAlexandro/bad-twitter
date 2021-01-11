@@ -11,6 +11,7 @@ const userMiddleware = require('./middlewares/user')
 const homeRoutes = require('./routes/home')
 const authRoutes = require('./routes/auth')
 const profileRoutes = require('./routes/profile')
+const postRoutes = require('./routes/posts')
 const keys = require('./keys')
 
 const app = express()
@@ -48,6 +49,7 @@ app.use(userMiddleware)
 app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
 app.use('/profile', profileRoutes)
+app.use('/posts', postRoutes)
 
 const PORT = process.env.PORT || 3000
 

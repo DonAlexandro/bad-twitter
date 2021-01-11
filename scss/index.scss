@@ -63,3 +63,23 @@ body {
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     background-color: $danger-color;
 }
+
+.options {
+    @include center-content-by-y;
+
+    color: $muted-color;
+    text-decoration: none;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+        color: $danger-color;
+    }
+}
+
+.post-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
+}

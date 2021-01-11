@@ -21,6 +21,7 @@
                     <ul class="dropdown-menu user-dropdown" aria-labelledby="navbarDropdown">
                         <li><a href="/profile" class="dropdown-item">Профіль</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header pt-1">Статус</h6></li>
                         <li>
                             <form action="/profile/status" method="POST">
                                 <input type="hidden" name="userId" value="{{user._id}}">
@@ -30,7 +31,6 @@
                                         type="text"
                                         id="status"
                                         name="status"
-                                        placeholder="Статус"
                                         class="form-control form-control-sm rounded-0 rounded-start"
                                         value="{{user.status}}"
                                     >
