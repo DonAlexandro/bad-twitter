@@ -1,0 +1,11 @@
+{{#if user.avatarUrl}}
+    <div class="d-flex">
+        <div class="border p-1 rounded-circle d-inline-block mx-auto">
+            <div class="full-avatar rounded-circle">
+                <img src="{{user.avatarUrl}}" alt="{{user.name}}-avatar">
+            </div>
+        </div>
+    </div>
+{{else}}
+    <img src="/user-plug.png" alt="{{user.name}}-avatar" class="img-thumbnail rounded-circle avatar">
+{{/if}}

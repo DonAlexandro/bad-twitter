@@ -69,7 +69,12 @@ router.post('/signup', signupValidator, async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, 10)
 
-		const user = new User({email, password: hashedPassword, name})
+		const user = new User({
+			email,
+			password: hashedPassword,
+			name,
+			date: Date.now()
+		})
 
 		await user.save()
 

@@ -1,4 +1,4 @@
-<form action="/posts/create" method="POST">
+<form action="{{#if data}}/posts/edit{{else}}/posts/create{{/if}}" method="POST">
     <div class="row mb-3">
         <div class="col-lg-6">
             <label for="title" class="form-label">Заголовок допису</label>
@@ -28,8 +28,7 @@
             class="form-control"
             id="text"
             name="text"
-            value="{{data.text}}"
-        ></textarea>
+        >{{data.text}}</textarea>
     </div>
     <div class="mb-3">
         <label for="tags" class="form-label">Теги</label>
@@ -40,8 +39,17 @@
             name="tags"
             value="{{data.tags}}"
         >
-        <div class="form-text">Теги вводяться через кому, наприклад: гаджети, технології, ноутбуки</div>
+        <div class="form-text">Теги вводяться розділяючись комою, наприклад: гаджети,технології,ноутбуки</div>
     </div>
     <input type="hidden" name="_csrf" value="{{csrf}}">
-    <button type="submit" class="btn btn-danger">Створити</button>
+    {{#if data}}
+        <input type="hidden" name="id" value="{{data._id}}">
+    {{/if}}
+    <button type="submit" class="btn btn-danger">
+        {{#if data}}
+            Оновити
+        {{else}}
+            Створити
+        {{/if}}
+    </button>
 </form>

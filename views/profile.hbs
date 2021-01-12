@@ -3,21 +3,19 @@
     <div class="col-lg-3">
         <div class="card">
             <div class="card-body">
-                {{#if user.avatarUrl}}
-                    <img src="{{user.avatarUrl}}" alt="{{user.name}}-avatar" class="img-thumbnail rounded-circle avatar">
-                {{else}}
-                    <img src="/user-plug.png" alt="{{user.name}}-avatar" class="img-thumbnail rounded-circle avatar">
-                {{/if}}
+                {{> full-avatar user=user}}
                 <h5 class="card-title mt-3">{{user.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{user.status}}</h6>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <form action="/profile" method="POST" class="mb-2">
-                        <label for="avatarUrl" class="form-label">Змінити світлину профілью</label>
-                        <input class="form-control form-control-sm" name="avatarUrl" id="avatarUrl" type="file">
+                    <form action="/profile" method="POST" class="mb-2" enctype="multipart/form-data">
+                        <label for="avatar" class="form-label">Змінити світлину профілю</label>
+                        <input class="form-control form-control-sm" name="avatar" id="avatar" type="file" required>
                         <input type="hidden" name="_csrf" value="{{csrf}}">
-                        <input type="hidden" name="">
+                        <div class="d-grid">
+                            <button class="btn btn-outline-danger btn-sm mt-3">Змінити</button>
+                        </div>
                     </form>
                 </li>
             </ul>
@@ -50,56 +48,7 @@
                 </div>
                 {{#if posts.length}}
                     {{#each posts}}
-                        <div class="card mt-3">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    {{#if userId.avatarUrl}}
-                                        <img src="{{userId.avatarUrl}}" width="50px" alt="{{userId.name}} avatar">
-                                    {{else}}
-                                        <img src="/user-plug.png" width="50px" alt="{{userId.name}} avatar">
-                                    {{/if}}
-                                    <h6 class="d-block ms-2 mb-0">
-                                        {{userId.name}} <br>
-                                        <small class="mb-2 text-muted date">{{date}}</small>
-                                    </h6>
-                                </div>
-                                <div class="dropdown">
-                                    <a data-bs-toggle="dropdown" class="options">
-                                        <span class="material-icons">more_vert</span>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li>
-                                            <a class="dropdown-item" href="#">Редагувати</a>
-                                        </li>
-                                        <li>
-                                            <form action="/posts/remove" method="POST">
-                                                <input type="hidden" name="id" value="{{_id}}">
-                                                <input type="hidden" name="_csrf" value="{{@root.csrf}}">
-                                                <button class="dropdown-item" type="sbumit">Видалити</button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{title}}</h5>
-                                <p class="card-text post-text">{{text}}</p>
-                                <a href="/posts/{{_id}}" class="btn btn-danger btn-sm">Переглянути</a>
-                                {{#if tags.length}}
-                                    <h5 class="border-top mt-3 pt-3">
-                                        {{#each tags}}
-                                            <span class="badge rounded-pill bg-secondary">{{this}}</span>
-                                        {{/each}}
-                                    </h5>
-                                {{/if}}
-                            </div>
-                            <div class="card-footer">
-                                <div class="text-muted d-flex align-items-center">
-                                    <span class="material-icons">category</span>
-                                    <div class="ms-1">Категорія: {{category}}</div>
-                                </div>
-                            </div>
-                        </div>
+                        {{> post-card post=this full=false}}
                     {{/each}}
                 {{else}}
                     <p class="text-center fs-3 mt-3">Дописів поки що немає...</p>
