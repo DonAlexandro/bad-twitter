@@ -1,0 +1,57 @@
+<form action="{{#if data}}/projects/edit{{else}}/projects{{/if}}" method="POST" enctype="multipart/form-data">
+    <div class="row mb-3">
+        <div class="col-lg-6">
+            <label for="title" class="form-label">
+                Заголовок проєкту - <small class="fst-italic text-muted">Обов'язково</small>
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="projectTitle"
+                value="{{data.projectTitle}}"
+            >
+        </div>
+        <div class="col-lg-6 mt-3 mt-lg-0">
+            <label for="price" class="form-label">
+                Ціна проєкту
+                <small class="text-muted">(в грн.)</small> - <small class="fst-italic text-muted">Обов'язково</small>
+            </label>
+            <input
+                type="number"
+                class="form-control"
+                id="price"
+                name="price"
+                value="{{data.price}}"
+            >
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">
+            Опис проєкту - <small class="fs-7 fst-italic text-muted">Обов'язково</small>
+        </label>
+        <textarea
+            class="form-control"
+            id="description"
+            name="description"
+        >{{data.description}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="projectImg" class="form-label">
+            Світлина проєкту - <small class="fs-7 fst-italic text-muted">Необов'язково</small>
+        </label>
+        <input class="form-control" type="file" id="projectImg" name="projectImg">
+        <div class="form-text">Дозволяється загружати лише файли з розширеннями jpg, png, gif</div>
+    </div>
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    {{#if data}}
+        <input type="hidden" name="id" value="{{data._id}}">
+    {{/if}}
+    <button type="submit" class="btn btn-danger">
+        {{#if data}}
+            Оновити
+        {{else}}
+            Додати
+        {{/if}}
+    </button>
+</form>

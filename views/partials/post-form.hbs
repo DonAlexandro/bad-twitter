@@ -1,7 +1,9 @@
-<form action="{{#if data}}/posts/edit{{else}}/posts/create{{/if}}" method="POST">
+<form action="{{#if data}}/posts/edit{{else}}/posts{{/if}}" method="POST">
     <div class="row mb-3">
         <div class="col-lg-6">
-            <label for="title" class="form-label">Заголовок допису</label>
+            <label for="title" class="form-label">
+                Заголовок допису - <small class="fst-italic text-muted">Обов'язково</small>
+            </label>
             <input
                 type="text"
                 class="form-control"
@@ -11,7 +13,9 @@
             >
         </div>
         <div class="col-lg-6 mt-3 mt-lg-0">
-            <label for="category" class="form-label">Категорія допису</label>
+            <label for="category" class="form-label">
+                Категорія допису - <small class="fst-italic text-muted">Обов'язково</small>
+            </label>
             <input
                 type="text"
                 class="form-control"
@@ -22,16 +26,19 @@
         </div>
     </div>
     <div class="mb-3">
-        <label for="text" class="form-label">Текст допису</label>
+        <label for="text" class="form-label">
+            Текст допису - <small class="fst-italic text-muted">Обов'язково</small>
+        </label>
         <textarea
-            type="text"
             class="form-control"
             id="text"
             name="text"
         >{{data.text}}</textarea>
     </div>
     <div class="mb-3">
-        <label for="tags" class="form-label">Теги</label>
+        <label for="tags" class="form-label">
+            Теги - <small class="fst-italic text-muted">Необов'язково</small>
+        </label>
         <input
             type="text"
             class="form-control"

@@ -40,11 +40,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="feed">
                 <div class="d-grid">
-                    <button
-                        class="btn btn-block btn-danger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#postModal"
-                    >Новий допис</button>
+                    <a href="/posts/create" class="btn btn-block btn-danger">Новий допис</a>
                 </div>
                 {{#if posts.length}}
                     {{#each posts}}
@@ -54,23 +50,37 @@
                     <p class="text-center fs-3 mt-3">Дописів поки що немає...</p>
                 {{/if}}
             </div>
-            <div class="tab-pane" id="projects">Projects</div>
+            <div class="tab-pane" id="projects">
+                <div class="d-grid">
+                    <a href="/projects/create" class="btn btn-block btn-danger">Новий проект</a>
+                </div>
+                {{#if projects.length}}
+                    {{#each projects}}
+                        {{> project-card project=this full=false}}
+                    {{/each}}
+                {{else}}
+                    <p class="text-center fs-3 mt-3">Проєктів поки що немає...</p>
+                {{/if}}
+            </div>
             <div class="tab-pane" id="info">Info</div>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title mb-0">Портфоліо</h5>
+                <h5 class="mb-0">Портфоліо</h5>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
+            {{#if projects.length}}
+                <ul class="list-group list-group-flush">
+                    {{#each projects}}
+                        <li class="list-group-item text-truncate">
+                            <a href="/projects/{{_id}}" class="text-decoration-none text-danger">{{title}}</a>
+                        </li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <p class="text-center">Проєктів поки що немає...</p>
+            {{/if}}
         </div>
     </div>
 </div>
-{{#> modal}}
-    {{> post-form}}
-{{/modal}}

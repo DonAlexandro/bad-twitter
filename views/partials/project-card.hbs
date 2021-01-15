@@ -1,0 +1,45 @@
+<div class="card {{#unless full}}mt-3{{/unless}}">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            {{> mini-avatar user=project.userId}}
+            <h6 class="d-block ms-2 mb-0">
+                {{project.userId.name}} <br>
+                <small class="mb-2 text-muted date fw-normal">{{project.date}}</small>
+            </h6>
+        </div>
+        <div class="dropdown">
+            <a data-bs-toggle="dropdown" class="options">
+                <span class="material-icons">more_vert</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="/projects/{{project._id}}/edit">Редагувати</a>
+                </li>
+                <li>
+                    <form action="/projects/remove" method="POST">
+                        <input type="hidden" name="id" value="{{project._id}}">
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                        <button class="dropdown-item" type="submit">Видалити</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {{#if project.img}}
+        {{#if full}}
+            <img src="/{{project.img}}" class="card-img-top" alt="{{project.title}}">
+        {{else}}
+            <div class="card-img-wrapper">
+                <img src="/{{project.img}}" class="card-img-top" alt="{{project.title}}">
+            </div>
+        {{/if}}
+    {{/if}}
+    <div class="card-body">
+        <h5 class="card-title text-truncate">{{project.title}}</h5>
+        <h6 class="text-muted mb-2 price">{{project.price}}</h6>
+        <p class="card-text lh-md {{#unless full}}post-text{{/unless}}">{{project.description}}</p>
+        {{#unless full}}
+            <a href="/projects/{{project._id}}" class="btn btn-danger btn-sm">Переглянути</a>
+        {{/unless}}
+    </div>
+</div>

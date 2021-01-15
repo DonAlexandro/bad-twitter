@@ -1,0 +1,68 @@
+{{> messages}}
+<div class="row">
+    <div class="col-lg-9">
+        {{> project-card project=project full=true}}
+<!--        <div class="card mt-4">-->
+<!--            <div class="card-body">-->
+<!--                <form action="/comments/add" method="POST">-->
+<!--                    <div class="d-flex align-items-start justify-content-between px-5">-->
+<!--                        {{> mini-avatar user=project.userId}}-->
+<!--                        <textarea name="text" class="form-control w-75" placeholder="Ваш коментар"></textarea>-->
+<!--                        <input type="hidden" name="_csrf" value="{{csrf}}">-->
+<!--                        <input type="hidden" name="postId" value="{{post._id}}">-->
+<!--                        <button class="btn btn-danger">Відіслати</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--                <div class="mt-5">-->
+<!--                    {{#if post.comments.items.length}}-->
+<!--                        {{#each post.comments.items}}-->
+<!--                            <div class="d-flex mb-3">-->
+<!--                                {{> mini-avatar user=userId}}-->
+<!--                                <div class="ms-2">-->
+<!--                                    <h6>-->
+<!--                                        {{userId.name}} <br>-->
+<!--                                        <small class="text-muted fw-normal date">{{date}}</small>-->
+<!--                                    </h6>-->
+<!--                                    <p>{{text}}</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        {{/each}}-->
+<!--                    {{else}}-->
+<!--                        <p class="mb-1 text-center text-muted">Коментарів поки що немає, будьте першим</p>-->
+<!--                    {{/if}}-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-0">Про автора</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item py-3">
+                    <h5>{{project.userId.name}}</h5>
+                    {{#if project.userId.emailVerified}}
+                        <small class="d-flex align-items-center text-success">
+                            <span class="material-icons">done</span>
+                            <div class="ms-2">Верифікований користувач</div>
+                        </small>
+                    {{else}}
+                        <small class="d-flex align-items-center text-danger">
+                            <span class="material-icons">error_outline</span>
+                            <div class="ms-2">Неверифікований користувач</div>
+                        </small>
+                    {{/if}}
+                </li>
+                <li class="list-group-item py-3">
+                    <h6>Коротка інформація</h6>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, aut eos ipsam iusto neque perferendis!</small>
+                </li>
+                <li class="list-group-item py-3">
+                    <h6>Зареєстрований з</h6>
+                    <small class="short-date text-muted">{{project.userId.date}}</small>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
