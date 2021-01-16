@@ -13,7 +13,11 @@ body {
 }
 
 .main-wrapper {
-    padding: 3rem 0;
+    padding: 2rem 0;
+
+    @media (min-width: 1140px) {
+        padding: 3rem 0;
+    }
 }
 
 .tab-pane {
@@ -116,4 +120,12 @@ body {
 
     height: 300px;
     overflow: hidden;
+}
+
+.nav {
+    flex-wrap: nowrap;
+
+    .nav-link {
+        display: inline-block;
+    }
 }

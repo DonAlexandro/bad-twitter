@@ -16,6 +16,7 @@ router.get('/', isAuthorized, async (req, res) => {
 			isHome: true,
 			success: req.flash('success'),
 			user: req.user.toObject(),
+			userId: req.user._id.toString(),
 			posts
 		})
 	} catch (e) {

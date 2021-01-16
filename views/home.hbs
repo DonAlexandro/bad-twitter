@@ -1,9 +1,9 @@
 {{> messages}}
 <div class="row">
     <div class="col-lg-3">
-        <div class="card">
+        <div class="card mb-3 mb-lg-0">
             <div class="card-body">
-                {{> full-avatar user=user}}
+                {{> full-avatar}}
                 <h5 class="card-title mt-3">{{user.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{user.status}}</h6>
             </div>
@@ -17,7 +17,7 @@
     <div class="col-lg-6">
         {{#if posts.length}}
             {{#each posts}}
-                {{> post-card post=this full=false}}
+                {{> post-card post=this full=false userId=@root.userId}}
             {{/each}}
         {{else}}
             <p class="fs-3">Дописів поки що немає...</p>

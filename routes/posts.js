@@ -2,6 +2,7 @@ const {Router} = require('express')
 const router = Router()
 const {validationResult} = require('express-validator')
 const Post = require('../models/post')
+const Comment = require('../models/comment')
 const {postValidator} = require('../utils/validators')
 const {isAuthorized} = require('../middlewares/auth')
 
@@ -65,14 +66,22 @@ router.get('/:id', isAuthorized, async (req, res) => {
 		const post = await Post
 			.findById(req.params.id)
 			.populate('userId')
-			.populate('comments.items.userId', 'name avatarUrl')
 			.lean()
 
 		if (post) {
+			const comments = await Comment
+				.find({postId: post._id})
+				.sort({date: 'desc'})
+				.populate('userId', 'name avatarUrl')
+				.lean()
+
 			res.render('post/single', {
 				title: post.title,
 				user: req.user.toObject(),
+				userId: req.user._id.toString(),
 				success: req.flash('success'),
+				error: req.flash('error'),
+				comments,
 				post
 			})
 		} else {
@@ -89,6 +98,7 @@ router.get('/:id/edit', isAuthorized, async (req, res) => {
 
 		if (post) {
 			if (!isOwner(post, req)) {
+				req.flash('error', 'Ви не можете редагувати цей допис')
 				return res.redirect(`/posts/${req.params.id}`)
 			}
 
@@ -121,6 +131,7 @@ router.post('/edit', isAuthorized, postValidator, async (req, res) => {
 		const post = await Post.findById(id)
 
 		if (!isOwner(post, req)) {
+			req.flash('error', 'Ви не можете редагувати цей допис')
 			return res.redirect(`/posts/${id}`)
 		}
 

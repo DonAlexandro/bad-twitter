@@ -21,6 +21,7 @@ router.get('/', isAuthorized, async (req, res) => {
 	res.render('profile', {
 		title: 'Профіль',
 		user: req.user.toObject(),
+		userId: req.user._id.toString(),
 		posts,
 		projects,
 		success: req.flash('success'),
