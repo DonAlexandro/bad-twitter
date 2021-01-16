@@ -7,29 +7,31 @@
                 <small class="mb-2 text-muted date fw-normal">{{post.date}}</small>
             </h6>
         </div>
-        {{#ifeq @root.user._id post.userId._id}}
-            <div class="dropdown">
-                <a data-bs-toggle="dropdown" class="options">
-                    <span class="material-icons">more_vert</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="/posts/{{post._id}}/edit">Редагувати</a>
-                    </li>
-                    <li>
-                        <form action="/posts/remove" method="POST">
-                            <input type="hidden" name="id" value="{{post._id}}">
-                            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
-                            <button class="dropdown-item" type="submit">Видалити</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        {{/ifeq}}
+        <div class="dropdown">
+            <a data-bs-toggle="dropdown" class="options">
+                <span class="material-icons">more_vert</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="/posts/{{post._id}}/edit">Редагувати</a>
+                </li>
+                <li>
+                    <form action="/posts/remove" method="POST">
+                        <input type="hidden" name="id" value="{{post._id}}">
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                        <button class="dropdown-item" type="submit">Видалити</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{post.title}}</h5>
-        <p class="card-text {{#unless full}}post-text{{/unless}}">{{post.text}}</p>
+        <small class="text-muted d-flex align-items-center mb-3">
+            <span class="material-icons fs-6 text-info">category</span>
+            <div class="ms-1">Категорія: {{post.category}}</div>
+        </small>
+        <h5 class="card-title text-truncate">{{post.title}}</h5>
+        <p class="card-text lh-md {{#unless full}}post-text{{/unless}}">{{post.text}}</p>
         {{#unless full}}
             <a href="/posts/{{post._id}}" class="btn btn-danger btn-sm">Переглянути</a>
         {{/unless}}
@@ -40,11 +42,5 @@
                 {{/each}}
             </h5>
         {{/if}}
-    </div>
-    <div class="card-footer">
-        <small class="text-muted d-flex align-items-center">
-            <span class="material-icons">category</span>
-            <div class="ms-1">Категорія: {{post.category}}</div>
-        </small>
     </div>
 </div>

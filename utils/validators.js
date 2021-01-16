@@ -100,3 +100,16 @@ exports.postValidator = [
 	body('tags')
 		.trim()
 ]
+
+exports.projectValidator = [
+	body('title')
+		.not().isEmpty().withMessage('Введіть назву проєкту')
+		.trim(),
+	body('price')
+		.not().isEmpty().withMessage('Введіть ціну проєкту')
+		.isNumeric({no_symbols: true}).withMessage('Ціна повинна містити лише цифри')
+		.trim(),
+	body('description')
+		.not().isEmpty().withMessage('Введіть опис проєкту')
+		.trim()
+]

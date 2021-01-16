@@ -14,6 +14,7 @@ const authRoutes = require('./routes/auth')
 const profileRoutes = require('./routes/profile')
 const postRoutes = require('./routes/posts')
 const commentRoutes = require('./routes/comments')
+const projectRoutes = require('./routes/projects')
 const hbsHelpers = require('./utils/hbs-helper')
 const keys = require('./keys')
 
@@ -45,7 +46,10 @@ app.use(session({
 	store
 }))
 
-app.use(fileMiddleware.single('avatar'))
+app.use(fileMiddleware.fields([
+	{name: 'avatar', maxCount: 1},
+	{name: 'projectImg', maxCount: 1}
+]))
 
 app.use(csrf())
 app.use(flash())
@@ -57,6 +61,7 @@ app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
 app.use('/profile', profileRoutes)
 app.use('/posts', postRoutes)
+app.use('/projects', projectRoutes)
 app.use('/comments', commentRoutes)
 
 const PORT = process.env.PORT || 3000

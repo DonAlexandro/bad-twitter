@@ -21,7 +21,9 @@ const userSchema = new Schema({
 	date: {
 		type: Date,
 		required: true
-	}
+	},
+	overview: String,
+	location: String
 })
 
 module.exports = model('User', userSchema)

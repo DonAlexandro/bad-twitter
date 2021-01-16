@@ -9,21 +9,20 @@ const isOwner = (post, req) => {
 	return post.userId.toString() === req.user._id.toString()
 }
 
-router.post('/create', isAuthorized, postValidator, async (req, res) => {
+router.get('/create', (req, res) => {
+	res.render('post/form', {
+		title: 'Створити допис',
+		user: req.user.toObject(),
+		error: req.flash('error')
+	})
+})
+
+router.post('/', isAuthorized, postValidator, async (req, res) => {
 	const errors = validationResult(req)
 
 	if (!errors.isEmpty()) {
-		return res.status(422).render('profile', {
-			title: 'Профіль',
-			user: req.user.toObject(),
-			error: errors.array()[0].msg,
-			data: {
-				title: req.body.title,
-				category: req.body.category,
-				text: req.body.text,
-				tags: req.body.tags
-			}
-		})
+		req.flash('error', errors.array()[0].msg)
+		return res.redirect('/posts/create')
 	}
 
 	const tags = req.body.tags !== '' ? req.body.tags.split(',') : undefined
@@ -70,7 +69,7 @@ router.get('/:id', isAuthorized, async (req, res) => {
 			.lean()
 
 		if (post) {
-			res.render('post', {
+			res.render('post/single', {
 				title: post.title,
 				user: req.user.toObject(),
 				success: req.flash('success'),
@@ -93,10 +92,11 @@ router.get('/:id/edit', isAuthorized, async (req, res) => {
 				return res.redirect(`/posts/${req.params.id}`)
 			}
 
-			res.render('post-edit', {
+			res.render('post/form', {
 				title: `Редагувати допис "${post.title}"`,
 				user: req.user.toObject(),
-				post
+				post,
+				error: req.flash('error')
 			})
 		} else {
 			// Redirect to 404
@@ -111,16 +111,8 @@ router.post('/edit', isAuthorized, postValidator, async (req, res) => {
 	const {id} = req.body
 
 	if (!errors.isEmpty()) {
-		return res.status(422).render('post-edit', {
-			title: `Редагувати допис "${req.body.title}"`,
-			user: req.user.toObject(),
-			data: {
-				title: req.body.title,
-				category: req.body.category,
-				text: req.body.text,
-				tags: req.body.tags
-			}
-		})
+		req.flash('error', errors.array()[0].msg)
+		return res.status(422).redirect(`/posts/${id}/edit`)
 	}
 
 	try {
