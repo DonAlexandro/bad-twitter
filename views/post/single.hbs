@@ -6,7 +6,7 @@
             <div class="card-body">
                 <form action="/comments/add" method="POST">
                     <div class="d-flex align-items-start justify-content-between px-5">
-                        {{> mini-avatar user=post.userId}}
+                        {{> mini-avatar user=user}}
                         <textarea name="text" class="form-control w-75" placeholder="Ваш коментар"></textarea>
                         <input type="hidden" name="_csrf" value="{{csrf}}">
                         <input type="hidden" name="postId" value="{{post._id}}">
