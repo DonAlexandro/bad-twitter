@@ -1,6 +1,10 @@
 @import "utils/variables";
 @import "utils/mixins";
 
+body {
+    background-color: $lighter;
+}
+
 .auth-wrapper {
     @include center-content;
 
@@ -9,8 +13,7 @@
 }
 
 .main-wrapper {
-    background-color: $lighter;
-    padding: 2rem 0;
+    padding: 3rem 0;
 }
 
 .tab-pane {
@@ -45,4 +48,72 @@
 
 .nav-link {
     cursor: pointer;
+}
+
+.full-avatar {
+    @include center-content;
+
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+
+    img {
+        height: 100%;
+    }
+}
+
+.avatar-sm {
+    @include center-content;
+
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+
+    img {
+        height: 100%;
+    }
+}
+
+.nav-pills .nav-link {
+    color: $danger-color;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: $danger-color;
+}
+
+.options {
+    @include center-content-by-y;
+
+    color: $muted-color;
+    text-decoration: none;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+        color: $danger-color;
+    }
+}
+
+.post-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
+}
+
+.fs-7 {
+    font-size: 14px;
+}
+
+.lh-md {
+    line-height: 1.7;
+}
+
+.card-img-wrapper {
+    @include center-content-by-y;
+
+    height: 300px;
+    overflow: hidden;
 }

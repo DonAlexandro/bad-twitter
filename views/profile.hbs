@@ -1,0 +1,121 @@
+{{> messages}}
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                {{> full-avatar user=user}}
+                <h5 class="card-title mt-3">{{user.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{user.status}}</h6>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <form action="/profile" method="POST" class="mb-2" enctype="multipart/form-data">
+                        <label for="avatar" class="form-label">Змінити світлину профілю</label>
+                        <input class="form-control form-control-sm" name="avatar" id="avatar" type="file" required>
+                        <input type="hidden" name="_csrf" value="{{csrf}}">
+                        <div class="d-grid">
+                            <button class="btn btn-outline-danger btn-sm mt-3">Змінити</button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-pills" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#feed">Ваші дописи</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-bs-toggle="tab" href="#projects">Ваші проекти</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-bs-toggle="tab" href="#info">Інформація</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="feed">
+                <div class="d-grid">
+                    <a href="/posts/create" class="btn btn-block btn-danger">Новий допис</a>
+                </div>
+                {{#if posts.length}}
+                    {{#each posts}}
+                        {{> post-card post=this full=false}}
+                    {{/each}}
+                {{else}}
+                    <p class="text-center fs-3 mt-3">Дописів поки що немає...</p>
+                {{/if}}
+            </div>
+            <div class="tab-pane" id="projects">
+                <div class="d-grid">
+                    <a href="/projects/create" class="btn btn-block btn-danger">Новий проект</a>
+                </div>
+                {{#if projects.length}}
+                    {{#each projects}}
+                        {{> project-card project=this full=false}}
+                    {{/each}}
+                {{else}}
+                    <p class="text-center fs-3 mt-3">Проєктів поки що немає...</p>
+                {{/if}}
+            </div>
+            <div class="tab-pane" id="info">
+                <form action="/profile" method="POST">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Ваше ім'я</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{user.name}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Ваш статус</label>
+                                <input type="text" class="form-control" name="status" id="status" value="{{user.status}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <label for="overview" class="form-label">Коротка інформація</label>
+                            <textarea class="form-control" name="overview" id="overview">{{user.overview}}</textarea>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <label for="location" class="form-label">Звідки ви?</label>
+                            <input type="text" class="form-control" name="location" id="location" value="{{user.location}}">
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-lg btn-danger" type="submit">Оновити</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-0">Портфоліо</h5>
+            </div>
+            {{#if projects.length}}
+                <ul class="list-group list-group-flush">
+                    {{#each projects}}
+                        <li class="list-group-item text-truncate">
+                            <a href="/projects/{{_id}}" class="text-decoration-none text-danger">{{title}}</a>
+                        </li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <p class="text-center">Проєктів поки що немає...</p>
+            {{/if}}
+        </div>
+    </div>
+</div>

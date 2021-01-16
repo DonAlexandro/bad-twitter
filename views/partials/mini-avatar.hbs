@@ -1,0 +1,7 @@
+{{#if user.avatarUrl}}
+    <div class="avatar-sm rounded-circle">
+        <img src="/{{user.avatarUrl}}" alt="{{user.name}} avatar">
+    </div>
+{{else}}
+    <img src="/user-plug.png" width="50px" alt="{{user.name}} avatar">
+{{/if}}

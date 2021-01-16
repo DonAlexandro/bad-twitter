@@ -1,0 +1,40 @@
+{{> messages}}
+<div class="row">
+    <div class="col-lg-9">
+        {{> post-card post=post full=true}}
+        <div class="card mt-4">
+            <div class="card-body">
+                <form action="/comments/add" method="POST">
+                    <div class="d-flex align-items-start justify-content-between px-5">
+                        {{> mini-avatar user=post.userId}}
+                        <textarea name="text" class="form-control w-75" placeholder="Ваш коментар"></textarea>
+                        <input type="hidden" name="_csrf" value="{{csrf}}">
+                        <input type="hidden" name="postId" value="{{post._id}}">
+                        <button class="btn btn-danger">Відіслати</button>
+                    </div>
+                </form>
+                <div class="mt-5">
+                    {{#if post.comments.items.length}}
+                        {{#each post.comments.items}}
+                            <div class="d-flex mb-3">
+                                {{> mini-avatar user=userId}}
+                                <div class="ms-2">
+                                    <h6>
+                                        {{userId.name}} <br>
+                                        <small class="text-muted fw-normal date">{{date}}</small>
+                                    </h6>
+                                    <p>{{text}}</p>
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{else}}
+                        <p class="mb-1 text-center text-muted">Коментарів поки що немає, будьте першим</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        {{> author user=post.userId}}
+    </div>
+</div>

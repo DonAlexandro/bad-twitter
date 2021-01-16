@@ -86,3 +86,30 @@ exports.passwordValidator = [
 		})
 		.trim(),
 ]
+
+exports.postValidator = [
+	body('title')
+		.isLength({min: 1}).withMessage('Введіть заголовок допису')
+		.trim(),
+	body('category')
+		.isLength({min: 1}).withMessage('Введіть категорію')
+		.trim(),
+	body('text')
+		.isLength({min: 1}).withMessage('Напишіть будь-яке коротке або довге повідомлення')
+		.trim(),
+	body('tags')
+		.trim()
+]
+
+exports.projectValidator = [
+	body('title')
+		.not().isEmpty().withMessage('Введіть назву проєкту')
+		.trim(),
+	body('price')
+		.not().isEmpty().withMessage('Введіть ціну проєкту')
+		.isNumeric({no_symbols: true}).withMessage('Ціна повинна містити лише цифри')
+		.trim(),
+	body('description')
+		.not().isEmpty().withMessage('Введіть опис проєкту')
+		.trim()
+]

@@ -16,7 +16,14 @@ const userSchema = new Schema({
 		default: false
 	},
 	resetToken: String,
-	resetTokenExp: Date
+	resetTokenExp: Date,
+	avatarUrl: String,
+	date: {
+		type: Date,
+		required: true
+	},
+	overview: String,
+	location: String
 })
 
 module.exports = model('User', userSchema)

@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="mb-0">Про автора</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item py-3">
+            <h5>{{user.name}}</h5>
+            {{#if user.emailVerified}}
+                <small class="d-flex align-items-center text-success">
+                    <span class="material-icons">done</span>
+                    <div class="ms-2">Верифікований користувач</div>
+                </small>
+            {{else}}
+                <small class="d-flex align-items-center text-danger">
+                    <span class="material-icons">error_outline</span>
+                    <div class="ms-2">Неверифікований користувач</div>
+                </small>
+            {{/if}}
+        </li>
+        {{#if user.location}}
+            <li class="list-group-item py-3">
+                <h6>Місце проживання</h6>
+                <small class="text-muted">{{user.location}}</small>
+            </li>
+        {{/if}}
+        <li class="list-group-item py-3">
+            <h6>Зареєстрований з</h6>
+            <small class="short-date text-muted">{{user.date}}</small>
+        </li>
+    </ul>
+</div>

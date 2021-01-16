@@ -5,7 +5,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#userDropdown">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse w-auto" id="userDropdown">
+        <div class="collapse navbar-collapse" id="userDropdown">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     {{#if isHome}}
@@ -15,19 +15,24 @@
                     {{/if}}
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown">
+                    <a class="nav-link {{#if isProfile}}active{{/if}} dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown">
                         {{user.name}}
                     </a>
-                    <ul class="dropdown-menu user-dropdown dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu user-dropdown" aria-labelledby="navbarDropdown">
+                        <li><a href="/profile" class="dropdown-item">Профіль</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header pt-1">Статус</h6></li>
                         <li>
-                            <form action="/profile/status">
+                            <form action="/profile" method="POST">
+                                <input type="hidden" name="userId" value="{{user._id}}">
+                                <input type="hidden" name="_csrf" value="{{csrf}}">
                                 <div class="d-flex px-3 py-1">
                                     <input
                                         type="text"
                                         id="status"
                                         name="status"
-                                        placeholder="Статус"
                                         class="form-control form-control-sm rounded-0 rounded-start"
+                                        value="{{user.status}}"
                                     >
                                     <button
                                         type="submit"

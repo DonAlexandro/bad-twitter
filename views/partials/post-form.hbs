@@ -1,0 +1,62 @@
+<form action="{{#if data}}/posts/edit{{else}}/posts{{/if}}" method="POST">
+    <div class="row mb-3">
+        <div class="col-lg-6">
+            <label for="title" class="form-label">
+                Заголовок допису - <small class="fst-italic text-muted">Обов'язково</small>
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                value="{{data.title}}"
+            >
+        </div>
+        <div class="col-lg-6 mt-3 mt-lg-0">
+            <label for="category" class="form-label">
+                Категорія допису - <small class="fst-italic text-muted">Обов'язково</small>
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                id="category"
+                name="category"
+                value="{{data.category}}"
+            >
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="text" class="form-label">
+            Текст допису - <small class="fst-italic text-muted">Обов'язково</small>
+        </label>
+        <textarea
+            class="form-control"
+            id="text"
+            name="text"
+        >{{data.text}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="tags" class="form-label">
+            Теги - <small class="fst-italic text-muted">Необов'язково</small>
+        </label>
+        <input
+            type="text"
+            class="form-control"
+            id="tags"
+            name="tags"
+            value="{{data.tags}}"
+        >
+        <div class="form-text">Теги вводяться розділяючись комою, наприклад: гаджети,технології,ноутбуки</div>
+    </div>
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    {{#if data}}
+        <input type="hidden" name="id" value="{{data._id}}">
+    {{/if}}
+    <button type="submit" class="btn btn-danger">
+        {{#if data}}
+            Оновити
+        {{else}}
+            Створити
+        {{/if}}
+    </button>
+</form>

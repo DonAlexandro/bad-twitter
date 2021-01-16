@@ -1,0 +1,46 @@
+<div class="card {{#unless full}}mt-3{{/unless}}">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            {{> mini-avatar user=post.userId}}
+            <h6 class="d-block ms-2 mb-0">
+                {{post.userId.name}} <br>
+                <small class="mb-2 text-muted date fw-normal">{{post.date}}</small>
+            </h6>
+        </div>
+        <div class="dropdown">
+            <a data-bs-toggle="dropdown" class="options">
+                <span class="material-icons">more_vert</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="/posts/{{post._id}}/edit">Редагувати</a>
+                </li>
+                <li>
+                    <form action="/posts/remove" method="POST">
+                        <input type="hidden" name="id" value="{{post._id}}">
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                        <button class="dropdown-item" type="submit">Видалити</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-body">
+        <small class="text-muted d-flex align-items-center mb-3">
+            <span class="material-icons fs-6 text-info">category</span>
+            <div class="ms-1">Категорія: {{post.category}}</div>
+        </small>
+        <h5 class="card-title text-truncate">{{post.title}}</h5>
+        <p class="card-text lh-md {{#unless full}}post-text{{/unless}}">{{post.text}}</p>
+        {{#unless full}}
+            <a href="/posts/{{post._id}}" class="btn btn-danger btn-sm">Переглянути</a>
+        {{/unless}}
+        {{#if post.tags.length}}
+            <h5 class="border-top mt-3 pt-3">
+                {{#each post.tags}}
+                    <span class="badge rounded-pill bg-secondary">{{this}}</span>
+                {{/each}}
+            </h5>
+        {{/if}}
+    </div>
+</div>
