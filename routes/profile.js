@@ -34,8 +34,11 @@ router.post('/', isAuthorized, async (req, res) => {
 		const user = await User.findById(req.user._id)
 
 		const toChange = {
-			avatarUrl: req.files['avatar'][0] ? req.files['avatar'][0].path : user.avatarUrl,
-			status: req.body.status ? req.body.status : user.status
+			name: req.body.name ? req.body.name : user.name,
+			avatarUrl: req.files ? req.files['avatar'][0].path : user.avatarUrl,
+			status: req.body.status ? req.body.status : user.status,
+			overview: req.body.overview ? req.body.overview : user.overview,
+			location: req.body.location ? req.body.location : user.location,
 		}
 
 		Object.assign(user, toChange)

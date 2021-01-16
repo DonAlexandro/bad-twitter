@@ -62,7 +62,42 @@
                     <p class="text-center fs-3 mt-3">Проєктів поки що немає...</p>
                 {{/if}}
             </div>
-            <div class="tab-pane" id="info">Info</div>
+            <div class="tab-pane" id="info">
+                <form action="/profile" method="POST">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Ваше ім'я</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{user.name}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Ваш статус</label>
+                                <input type="text" class="form-control" name="status" id="status" value="{{user.status}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <label for="overview" class="form-label">Коротка інформація</label>
+                            <textarea class="form-control" name="overview" id="overview">{{user.overview}}</textarea>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <label for="location" class="form-label">Звідки ви?</label>
+                            <input type="text" class="form-control" name="location" id="location" value="{{user.location}}">
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-lg btn-danger" type="submit">Оновити</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="col-lg-3">

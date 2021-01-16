@@ -5,6 +5,10 @@ const {projectValidator} = require('../utils/validators')
 const Project = require('../models/project')
 const {isAuthorized} = require('../middlewares/auth')
 
+const isOwner = (req, project) => {
+	return req.user._id.toString() === project.userId.toString()
+}
+
 router.get('/create', (req, res) => {
 	res.render('project/form', {
 		title: 'Додати проєкт',
@@ -32,7 +36,7 @@ router.post('/', isAuthorized, projectValidator, async (req, res) => {
 	const img = req.files['projectImg'] ? req.files['projectImg'][0].path : undefined
 
 	const project = new Project({
-		title: req.body.projectTitle,
+		title: req.body.title,
 		price: req.body.price,
 		description: req.body.description,
 		img,
@@ -67,7 +71,7 @@ router.get('/:id', async (req, res) => {
 	}
 })
 
-router.post('/remove', async (req, res) => {
+router.post('/remove', isAuthorized, async (req, res) => {
 	try {
 		await Project.deleteOne({
 			_id: req.body.id,
@@ -75,6 +79,64 @@ router.post('/remove', async (req, res) => {
 		})
 
 		req.flash('success', 'Проєкт успішно видалено!')
+		res.redirect('/profile')
+	} catch (e) {
+		console.trace(e)
+	}
+})
+
+
+router.get('/:id/edit', isAuthorized, async (req, res) => {
+	try {
+		const project = await Project
+			.findById(req.params.id)
+			.lean()
+
+		if (!isOwner(req, project)) {
+			req.flash('error', 'Ви не можете редагувати цей проєкт')
+			return res.redirect('/profile')
+		}
+
+		res.render('project/form', {
+			title: `Редагувати проєкт "${project.title}"`,
+			user: req.user.toObject(),
+			error: req.flash('error'),
+			project
+		})
+	} catch (e) {
+		console.trace(e)
+	}
+})
+
+router.post('/edit', isAuthorized, projectValidator, async (req, res) => {
+	const errors = validationResult(req)
+	const {id} = req.body
+
+	if (!errors.isEmpty()) {
+		req.flash('error', errors.array()[0].msg)
+		return res.redirect(`/projects/${id}/edit`)
+	}
+
+	try {
+		delete req.body.id
+
+		const project = await Project.findById(id)
+
+		if (!isOwner(req, project)) {
+			req.flash('error', 'Ви не можете редагувати цей проєкт')
+			return res.redirect('/profile')
+		}
+
+		const toChange = {
+			...req.body,
+			img: req.files['projectImg'] ? req.files['projectImg'][0].path : project.img
+		}
+
+		Object.assign(project, toChange)
+
+		await project.save()
+
+		req.flash('success', 'Проєкт успішно відредаговано')
 		res.redirect('/profile')
 	} catch (e) {
 		console.trace(e)

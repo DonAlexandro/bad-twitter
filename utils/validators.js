@@ -102,7 +102,7 @@ exports.postValidator = [
 ]
 
 exports.projectValidator = [
-	body('projectTitle')
+	body('title')
 		.not().isEmpty().withMessage('Введіть назву проєкту')
 		.trim(),
 	body('price')
