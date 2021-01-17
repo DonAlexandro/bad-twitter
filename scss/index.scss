@@ -5,6 +5,10 @@ body {
     background-color: $lighter;
 }
 
+a {
+    text-decoration: none!important;
+}
+
 .auth-wrapper {
     @include center-content;
 

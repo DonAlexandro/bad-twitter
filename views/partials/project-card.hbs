@@ -47,4 +47,12 @@
             <a href="/projects/{{project._id}}" class="btn btn-danger btn-sm">Переглянути</a>
         {{/unless}}
     </div>
+    {{#if full}}
+        <div class="card-footer">
+            <div class="text-muted d-flex align-items-center">
+                <span class="material-icons fs-6 me-1">mode_comment</span>
+                Коментарів: {{comments.length}}
+            </div>
+        </div>
+    {{/if}}
 </div>

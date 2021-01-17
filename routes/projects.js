@@ -64,8 +64,8 @@ router.get('/:id', async (req, res) => {
 		if (project) {
 			const comments = await Comment
 				.find({projectId: project._id})
-				.sort({date: 'desc'})
 				.populate('userId', 'name avatarUrl')
+				.populate('replyTo')
 				.lean()
 
 			res.render('project/single', {

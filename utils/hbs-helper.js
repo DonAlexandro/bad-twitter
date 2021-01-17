@@ -5,5 +5,8 @@ module.exports = {
 		}
 
 		return options.inverse(this)
+	},
+	includes(arr, item) {
+		return arr.some(elem => elem.userId.toString() == item.toString())
 	}
 }

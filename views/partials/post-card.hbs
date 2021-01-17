@@ -48,4 +48,31 @@
             </h5>
         {{/if}}
     </div>
+    {{#if full}}
+        <div class="card-footer text-muted d-flex" id="fullCardFooter">
+            {{#if (includes post.likes user._id)}}
+                <button
+                    class="btn btn-sm btn-danger like"
+                    data-id="{{post._id}}"
+                    data-csrf="{{csrf}}"
+                >
+                    Не подобається
+                    <span class="badge bg-light text-danger ms-2">{{post.likes.length}}</span>
+                </button>
+            {{else}}
+                <button
+                    class="btn btn-sm btn-outline-danger like"
+                    data-id="{{post._id}}"
+                    data-csrf="{{csrf}}"
+                >
+                    Подобається
+                    <span class="badge bg-danger ms-2">{{post.likes.length}}</span>
+                </button>
+            {{/if}}
+            <div class="d-flex align-items-center ms-4">
+                <span class="material-icons fs-6 me-1">mode_comment</span>
+                Коментарів: {{comments.length}}
+            </div>
+        </div>
+    {{/if}}
 </div>

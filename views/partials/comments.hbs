@@ -4,7 +4,7 @@
         <div class="mt-4 mt-lg-5">
             {{#if comments.length}}
                 {{#each comments}}
-                    <div class="d-flex mb-3 w-100">
+                    <div class="d-flex mb-3 w-100" id="comment-{{_id}}">
                         {{> mini-avatar user=userId}}
                         <div class="ms-2 w-100">
                             <div class="d-flex justify-content-between align-items-center w-100">
@@ -18,11 +18,16 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li>
-                                            <a class="dropdown-item" href="#">Відповісти</a>
+                                            <a
+                                                class="dropdown-item commentButton"
+                                                data-comment="{{_id}}"
+                                                data-type="reply"
+                                                href="#"
+                                            >Відповісти</a>
                                         </li>
                                         {{#ifeq @root.userId userId._id}}
                                             <li>
-                                                <a class="dropdown-item" href="#">Редагувати</a>
+                                                <a class="dropdown-item commentButton" data-comment="{{_id}}" href="#">Редагувати</a>
                                             </li>
                                             <li>
                                                 <form action="/comments/remove" method="POST">
@@ -37,7 +42,21 @@
                                     </ul>
                                 </div>
                             </div>
-                            <p>{{text}}</p>
+                            <div class="mb-3">
+                                {{#if replyTo}}<a href="#comment-{{replyTo.commentId}}">{{replyTo.name}}</a>,{{/if}}
+                                <span id="text-{{_id}}">{{text}}</span>
+                            </div>
+                            <form action="/comments/edit" method="POST" class="d-none" id="form-{{_id}}">
+                                <textarea name="text" class="form-control">{{text}}</textarea>
+                                <input type="hidden" name="id" value="{{_id}}">
+                                {{#if postId}}
+                                    <input type="hidden" name="postId" value="{{postId}}">
+                                {{else}}
+                                    <input type="hidden" name="projectId" value="{{projectId}}">
+                                {{/if}}
+                                <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                                <button class="btn btn-sm btn-danger mt-2" type="submit">Редагувати</button>
+                            </form>
                         </div>
                     </div>
                 {{/each}}

@@ -113,3 +113,9 @@ exports.projectValidator = [
 		.not().isEmpty().withMessage('Введіть опис проєкту')
 		.trim()
 ]
+
+exports.commentValidator = [
+	body('text')
+		.not().isEmpty().withMessage('Коментар не може бути пустим')
+		.trim()
+]

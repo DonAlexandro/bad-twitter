@@ -35,7 +35,7 @@ router.post('/', isAuthorized, postValidator, async (req, res) => {
 		text: req.body.text,
 		date: Date.now(),
 		userId: req.user,
-		comments: {items: []}
+		likes: []
 	})
 
 	try {
@@ -71,8 +71,8 @@ router.get('/:id', isAuthorized, async (req, res) => {
 		if (post) {
 			const comments = await Comment
 				.find({postId: post._id})
-				.sort({date: 'desc'})
 				.populate('userId', 'name avatarUrl')
+				.populate('replyTo')
 				.lean()
 
 			res.render('post/single', {
@@ -146,6 +146,17 @@ router.post('/edit', isAuthorized, postValidator, async (req, res) => {
 
 		req.flash('success', 'Допис успішно відредаговано!')
 		res.redirect(`/posts/${id}`)
+	} catch (e) {
+		console.trace(e)
+	}
+})
+
+router.post('/like/:id', async (req, res) => {
+	try {
+		const post = await Post.findById(req.params.id)
+
+		await post.addLike(req.user._id)
+		res.status(200).json({likes: post.likes, userId: req.user._id.toString()})
 	} catch (e) {
 		console.trace(e)
 	}
