@@ -3,6 +3,7 @@ const router = Router()
 const {validationResult} = require('express-validator')
 const {projectValidator} = require('../utils/validators')
 const Project = require('../models/project')
+const Comment = require('../models/comment')
 const {isAuthorized} = require('../middlewares/auth')
 
 const isOwner = (req, project) => {
@@ -60,12 +61,22 @@ router.get('/:id', async (req, res) => {
 			.populate('userId')
 			.lean()
 
-		res.render('project/single', {
-			title: project.title,
-			user: req.user.toObject(),
-			success: req.flash('success'),
-			project
-		})
+		if (project) {
+			const comments = await Comment
+				.find({projectId: project._id})
+				.populate('userId', 'name avatarUrl')
+				.populate('replyTo')
+				.lean()
+
+			res.render('project/single', {
+				title: project.title,
+				user: req.user.toObject(),
+				userId: req.user._id.toString(),
+				success: req.flash('success'),
+				comments,
+				project
+			})
+		}
 	} catch (e) {
 		console.trace(e)
 	}

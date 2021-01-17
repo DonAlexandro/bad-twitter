@@ -1,0 +1,15 @@
+<form action="/comments/add" method="POST">
+    <div class="d-lg-flex align-items-start justify-content-between px-lg-5">
+        <div class="d-none d-lg-block">
+            {{> mini-avatar}}
+        </div>
+        <textarea name="text" class="form-control mx-lg-3" placeholder="Ваш коментар"></textarea>
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        {{#if postId}}
+            <input type="hidden" name="postId" value="{{postId}}">
+        {{else}}
+            <input type="hidden" name="projectId" value="{{projectId}}">
+        {{/if}}
+        <button class="btn btn-danger mt-3 mt-lg-0">Відіслати</button>
+    </div>
+</form>

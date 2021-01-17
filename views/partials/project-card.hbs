@@ -13,15 +13,20 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item" href="/projects/{{project._id}}/edit">Редагувати</a>
+                    <a class="dropdown-item" href="/projects/{{project._id}}">Переглянути</a>
                 </li>
-                <li>
-                    <form action="/projects/remove" method="POST">
-                        <input type="hidden" name="id" value="{{project._id}}">
-                        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
-                        <button class="dropdown-item" type="submit">Видалити</button>
-                    </form>
-                </li>
+                {{#ifeq userId project.userId._id}}
+                    <li>
+                        <a class="dropdown-item" href="/projects/{{project._id}}/edit">Редагувати</a>
+                    </li>
+                    <li>
+                        <form action="/projects/remove" method="POST">
+                            <input type="hidden" name="id" value="{{project._id}}">
+                            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                            <button class="dropdown-item" type="submit">Видалити</button>
+                        </form>
+                    </li>
+                {{/ifeq}}
             </ul>
         </div>
     </div>
@@ -42,4 +47,12 @@
             <a href="/projects/{{project._id}}" class="btn btn-danger btn-sm">Переглянути</a>
         {{/unless}}
     </div>
+    {{#if full}}
+        <div class="card-footer">
+            <div class="text-muted d-flex align-items-center">
+                <span class="material-icons fs-6 me-1">mode_comment</span>
+                Коментарів: {{comments.length}}
+            </div>
+        </div>
+    {{/if}}
 </div>

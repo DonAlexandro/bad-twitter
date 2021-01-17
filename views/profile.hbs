@@ -1,9 +1,9 @@
 {{> messages}}
 <div class="row">
     <div class="col-lg-3">
-        <div class="card">
+        <div class="card mb-3 mb-lg-3">
             <div class="card-body">
-                {{> full-avatar user=user}}
+                {{> full-avatar}}
                 <h5 class="card-title mt-3">{{user.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{user.status}}</h6>
             </div>
@@ -22,17 +22,17 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <ul class="nav nav-pills" id="myTab" role="tablist">
+        <div class="card overflow-auto">
+            <div class="card-body overflow-auto">
+                <ul class="nav nav-pills overflow-auto" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#feed">Ваші дописи</a>
+                        <a class="nav-link active text-nowrap" data-bs-toggle="tab" href="#feed">Ваші дописи</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#projects">Ваші проекти</a>
+                        <a class="nav-link text-nowrap" data-bs-toggle="tab" href="#projects">Ваші проекти</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#info">Інформація</a>
+                        <a class="nav-link text-nowrap" data-bs-toggle="tab" href="#info">Інформація</a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +44,7 @@
                 </div>
                 {{#if posts.length}}
                     {{#each posts}}
-                        {{> post-card post=this full=false}}
+                        {{> post-card post=this full=false userId=@root.userId}}
                     {{/each}}
                 {{else}}
                     <p class="text-center fs-3 mt-3">Дописів поки що немає...</p>
@@ -56,7 +56,7 @@
                 </div>
                 {{#if projects.length}}
                     {{#each projects}}
-                        {{> project-card project=this full=false}}
+                        {{> project-card project=this full=false userId=@root.userId}}
                     {{/each}}
                 {{else}}
                     <p class="text-center fs-3 mt-3">Проєктів поки що немає...</p>

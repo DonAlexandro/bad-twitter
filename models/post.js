@@ -22,28 +22,24 @@ const postSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	},
-	comments: {
-		items: [
-			{
-				userId: {
-					type: Schema.Types.ObjectId,
-					ref: 'User'
-				},
-				text: {
-					type: String,
-					required: true
-				},
-				date: {
-					type: Date,
-					required: true
-				}
+	likes: [
+		{
+			userId: {
+				type: Schema.Types.ObjectId,
+				ref: 'User'
 			}
-		]
-	}
+		}
+	]
 })
 
-postSchema.methods.addComment = function (comment) {
-	this.comments.items.push(comment)
+postSchema.methods.addLike = function(userId) {
+	const idx = this.likes.findIndex(like => like.userId.toString() === userId.toString())
+
+	if (idx !== -1) {
+		this.likes.splice(idx, 1)
+	} else {
+		this.likes.push({userId})
+	}
 
 	return this.save()
 }
