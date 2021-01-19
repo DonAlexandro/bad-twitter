@@ -3,5 +3,7 @@
         <img src="/{{user.avatarUrl}}" alt="{{user.name}} avatar">
     </div>
 {{else}}
-    <img src="/user-plug.png" width="50px" alt="{{user.name}} avatar">
+    <div class="avatar-sm rounded-circle">
+        <img src="/user-plug.png" alt="{{user.name}} avatar">
+    </div>
 {{/if}}

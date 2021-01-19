@@ -4,8 +4,8 @@
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item py-3">
-            <h5>{{user.name}}</h5>
-            {{#if user.emailVerified}}
+            <h5>{{data.userId.name}}</h5>
+            {{#if data.userId.emailVerified}}
                 <small class="d-flex align-items-center text-success">
                     <span class="material-icons">done</span>
                     <div class="ms-2">Верифікований користувач</div>
@@ -17,15 +17,15 @@
                 </small>
             {{/if}}
         </li>
-        {{#if user.location}}
+        {{#if data.userId.location}}
             <li class="list-group-item py-3">
                 <h6>Місце проживання</h6>
-                <small class="text-muted">{{user.location}}</small>
+                <small class="text-muted">{{data.userId.location}}</small>
             </li>
         {{/if}}
         <li class="list-group-item py-3">
             <h6>Зареєстрований з</h6>
-            <small class="short-date text-muted">{{user.date}}</small>
+            <small class="short-date text-muted">{{data.userId.date}}</small>
         </li>
     </ul>
 </div>

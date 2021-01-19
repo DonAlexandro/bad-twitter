@@ -20,6 +20,7 @@
                 </li>
             </ul>
         </div>
+        {{> copyright}}
     </div>
     <div class="col-lg-6">
         <div class="card overflow-auto">
@@ -47,19 +48,19 @@
                         {{> post-card post=this full=false userId=@root.userId}}
                     {{/each}}
                 {{else}}
-                    <p class="text-center fs-3 mt-3">Дописів поки що немає...</p>
+                    <p class="text-center fs-3">Дописів поки що немає...</p>
                 {{/if}}
             </div>
             <div class="tab-pane" id="projects">
                 <div class="d-grid">
-                    <a href="/projects/create" class="btn btn-block btn-danger">Новий проект</a>
+                    <a href="/projects/create" class="btn btn-block btn-danger mb-3">Новий проект</a>
                 </div>
                 {{#if projects.length}}
                     {{#each projects}}
                         {{> project-card project=this full=false userId=@root.userId}}
                     {{/each}}
                 {{else}}
-                    <p class="text-center fs-3 mt-3">Проєктів поки що немає...</p>
+                    <p class="text-center fs-3">Проєктів поки що немає...</p>
                 {{/if}}
             </div>
             <div class="tab-pane" id="info">

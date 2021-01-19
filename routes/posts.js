@@ -22,8 +22,17 @@ router.post('/', isAuthorized, postValidator, async (req, res) => {
 	const errors = validationResult(req)
 
 	if (!errors.isEmpty()) {
-		req.flash('error', errors.array()[0].msg)
-		return res.redirect('/posts/create')
+		return res.status(422).render('post/form', {
+			title: 'Створити допис',
+			user: req.user.toObject(),
+			error: errors.array()[0].msg,
+			post: {
+				title: req.body.title,
+				text: req.body.text,
+				category: req.body.category,
+				tags: req.body.tags
+			}
+		})
 	}
 
 	const tags = req.body.tags !== '' ? req.body.tags.split(',') : undefined

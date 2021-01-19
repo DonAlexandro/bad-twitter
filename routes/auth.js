@@ -48,7 +48,7 @@ router.post('/login', loginValidator, async (req, res) => {
 		req.session.save(err => {
 			if (err) throw err
 
-			req.flash('success', 'З поверненням!')
+			req.flash('success', 'Вітаємо!')
 			res.redirect('/')
 		})
 	} catch (e) {

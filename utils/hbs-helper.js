@@ -8,5 +8,8 @@ module.exports = {
 	},
 	includes(arr, item) {
 		return arr.some(elem => elem.userId.toString() == item.toString())
+	},
+	currentDate() {
+		return new Date().getFullYear()
 	}
 }

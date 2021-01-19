@@ -26,7 +26,7 @@ router.post('/', isAuthorized, projectValidator, async (req, res) => {
 			title: 'Додати проєкт',
 			user: req.user.toObject(),
 			error: errors.array()[0].msg,
-			data: {
+			project: {
 				projectTitle: req.body.projectTitle,
 				price: req.body.price,
 				description: req.body.description,

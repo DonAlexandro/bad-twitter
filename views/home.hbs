@@ -13,15 +13,71 @@
                 </li>
             </ul>
         </div>
+        {{> copyright}}
     </div>
     <div class="col-lg-6">
-        {{#if posts.length}}
-            {{#each posts}}
-                {{> post-card post=this full=false userId=@root.userId}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="d-none d-sm-block">
+                        {{> mini-avatar}}
+                    </div>
+                    <div>
+                        <a href="/posts/create" class="btn btn-outline-danger">Створити допис</a>
+                        <a href="/projects/create" class="btn btn-danger">Додати проєкт</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#if projects.length}}
+            {{#each projects}}
+                {{> project-card project=this full=false userId=@root.userId}}
             {{/each}}
         {{else}}
-            <p class="fs-3">Дописів поки що немає...</p>
+            <p class="fs-3 text-center">Проєктів поки що немає...</p>
         {{/if}}
     </div>
-    <div class="col-lg-3"></div>
+    <div class="col-lg-3">
+        <div class="card mt-5 mt-lg-0">
+            <div class="card-body">
+                <h5 class="mb-0">Популярні дописи</h5>
+            </div>
+            {{#if posts.length}}
+                <div class="list-group list-group-flush">
+                    {{#each posts}}
+                        <a href="/posts/{{_id}}" class="list-group-item list-group-item-action">
+                            <h6 class="text-truncate">{{title}}</h6>
+                            <p class="post-text fs-7 text-muted mb-0">{{text}}</p>
+                        </a>
+                    {{/each}}
+                </div>
+            {{else}}
+                <p class="fs-6 text-center">Дописів поки що немає...</p>
+            {{/if}}
+        </div>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="mb-0">Сторожили сайту</h5>
+            </div>
+            {{#if users.length}}
+                <ul class="list-group list-group-flush">
+                    {{#each users}}
+                        <li class="list-group-item d-flex">
+                            {{> mini-avatar user=this}}
+                            <div class="ms-2">
+                                <h6 class="mb-0">
+                                    {{name}} <br>
+                                </h6>
+                                <p class="text-muted fs-7 mb-0">
+                                    З нами з: <span class="short-date">{{date}}</span>
+                                </p>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <p class="fs-4">Але таких у нас поки що немає...</p>
+            {{/if}}
+        </div>
+    </div>
 </div>
